@@ -10,8 +10,8 @@ from dataclasses import dataclass
 
 warnings.filterwarnings("ignore")
 
-#from src.components.data_transformation import DataTransformation, DataTransformationConfig
-#from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
+from src.components.data_transformation import DataTransformation, DataTransformationConfig
+from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
 
 # Initialize Data Ingestion Configuration
 @dataclass
@@ -131,9 +131,18 @@ class DataIngestion:
             df_1 = pd.merge(weather_clean,agriculture_clean, on=['YEAR', 'STATE'])
             logging.info('Dataset read as pandas Dataframe')
 
+            # Define conversion factors
+            conversion_factors = {'SOYBEANS': 60, 'WHEAT': 60}
+
+            # Update yield values for soybeans and wheat based on the crop name in the 'commodity' column
+            for index, row in df_1.iterrows():
+                if row['COMMODITY'] in conversion_factors:
+                    df_1.at[index, 'YIELD'] *= conversion_factors[row['COMMODITY']]            
+
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path),exist_ok=True)
 
             df_1.to_csv(self.ingestion_config.raw_data_path,index=False)
+
             
             logging.info('Train Test Split Initiated')
             train_set, test_set = train_test_split(df_1, test_size=0.2, random_state=42)
@@ -156,3 +165,9 @@ class DataIngestion:
 if __name__ == '__main__':
     obj = DataIngestion()
     train_data, test_data = obj.initate_data_ingestion()
+
+    data_transformation = DataTransformation()
+    train_arr, test_arr, _ = data_transformation.initate_data_transformation(train_data,test_data)
+
+    modeltrainer=ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
