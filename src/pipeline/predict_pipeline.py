@@ -1,0 +1,278 @@
+import sys
+import os
+import pandas as pd
+from src.logger import logging
+from src.exception import CustomException
+from src.utils import load_object
+
+
+class PredictPipeline:
+    def __init__(self):
+        pass
+
+    def predict(self, features):
+        try:
+            model_path = os.path.join("artifacts", "model.pkl")
+            preprocessor_path = os.path.join("artifacts", "preprocessor.pkl")
+            logging.info("Before Loading")  # Add logging before loading objects
+            model = load_object(file_path=model_path)
+            preprocessor = load_object(file_path=preprocessor_path)
+            logging.info("After Loading")  # Add logging after loading objects
+            data_scaled = preprocessor.transform(features)
+            preds = model.predict(data_scaled)
+            return preds
+        
+        except Exception as e:
+            logging.error(f"Exception occurred: {e}")  # Log the exception
+            raise CustomException(e, sys)
+
+
+class CustomData:
+    def __init__(self,
+                 YEAR: int,
+                 STATE: str,
+                 REGION: str,
+                 PRCP_Apr: float,
+                 PRCP_Aug: float,
+                 PRCP_Dec: float,
+                 PRCP_Feb: float,
+                 PRCP_Jan: float,
+                 PRCP_Jul: float,
+                 PRCP_Jun: float,
+                 PRCP_Mar: float,
+                 PRCP_May: float,
+                 PRCP_Nov: float,
+                 PRCP_Oct: float,
+                 PRCP_Sep: float,
+                 SNOW_Apr: float,
+                 SNOW_Aug: float,
+                 SNOW_Dec: float,
+                 SNOW_Feb: float,
+                 SNOW_Jan: float,
+                 SNOW_Jul: float,
+                 SNOW_Jun: float,
+                 SNOW_Mar: float,
+                 SNOW_May: float,
+                 SNOW_Nov: float,
+                 SNOW_Oct: float,
+                 SNOW_Sep: float,
+                 SNWD_Apr: float,
+                 SNWD_Aug: float,
+                 SNWD_Dec: float,
+                 SNWD_Feb: float,
+                 SNWD_Jan: float,
+                 SNWD_Jul: float,
+                 SNWD_Jun: float,
+                 SNWD_Mar: float,
+                 SNWD_May: float,
+                 SNWD_Nov: float,
+                 SNWD_Oct: float,
+                 SNWD_Sep: float,
+                 TAVG_Apr: float,
+                 TAVG_Aug: float,
+                 TAVG_Dec: float,
+                 TAVG_Feb: float,
+                 TAVG_Jan: float,
+                 TAVG_Jul: float,
+                 TAVG_Jun: float,
+                 TAVG_Mar: float,
+                 TAVG_May: float,
+                 TAVG_Nov: float,
+                 TAVG_Oct: float,
+                 TAVG_Sep: float,
+                 TMAX_Apr: float,
+                 TMAX_Aug: float,
+                 TMAX_Dec: float,
+                 TMAX_Feb: float,
+                 TMAX_Jan: float,
+                 TMAX_Jul: float,
+                 TMAX_Jun: float,
+                 TMAX_Mar: float,
+                 TMAX_May: float,
+                 TMAX_Nov: float,
+                 TMAX_Oct: float,
+                 TMAX_Sep: float,
+                 TMIN_Apr: float,
+                 TMIN_Aug: float,
+                 TMIN_Dec: float,
+                 TMIN_Feb: float,
+                 TMIN_Jan: float,
+                 TMIN_Jul: float,
+                 TMIN_Jun: float,
+                 TMIN_Mar: float,
+                 TMIN_May: float,
+                 TMIN_Nov: float,
+                 TMIN_Oct: float,
+                 TMIN_Sep: float,
+                 COMMODITY: str,
+                 ACRES_HARVESTED: float,
+                 ACRES_PLANTED: float):
+
+        self.YEAR = YEAR
+        self.STATE = STATE
+        self.REGION = REGION
+        self.PRCP_Apr = PRCP_Apr
+        self.PRCP_Aug = PRCP_Aug
+        self.PRCP_Dec = PRCP_Dec
+        self.PRCP_Feb = PRCP_Feb
+        self.PRCP_Jan = PRCP_Jan
+        self.PRCP_Jul = PRCP_Jul
+        self.PRCP_Jun = PRCP_Jun
+        self.PRCP_Mar = PRCP_Mar
+        self.PRCP_May = PRCP_May
+        self.PRCP_Nov = PRCP_Nov
+        self.PRCP_Oct = PRCP_Oct
+        self.PRCP_Sep = PRCP_Sep
+        self.SNOW_Apr = SNOW_Apr
+        self.SNOW_Aug = SNOW_Aug
+        self.SNOW_Dec = SNOW_Dec
+        self.SNOW_Feb = SNOW_Feb
+        self.SNOW_Jan = SNOW_Jan
+        self.SNOW_Jul = SNOW_Jul
+        self.SNOW_Jun = SNOW_Jun
+        self.SNOW_Mar = SNOW_Mar
+        self.SNOW_May = SNOW_May
+        self.SNOW_Nov = SNOW_Nov
+        self.SNOW_Oct = SNOW_Oct
+        self.SNOW_Sep = SNOW_Sep
+        self.SNWD_Apr = SNWD_Apr
+        self.SNWD_Aug = SNWD_Aug
+        self.SNWD_Dec = SNWD_Dec
+        self.SNWD_Feb = SNWD_Feb
+        self.SNWD_Jan = SNWD_Jan
+        self.SNWD_Jul = SNWD_Jul
+        self.SNWD_Jun = SNWD_Jun
+        self.SNWD_Mar = SNWD_Mar
+        self.SNWD_May = SNWD_May
+        self.SNWD_Nov = SNWD_Nov
+        self.SNWD_Oct = SNWD_Oct
+        self.SNWD_Sep = SNWD_Sep
+        self.TAVG_Apr = TAVG_Apr
+        self.TAVG_Aug = TAVG_Aug
+        self.TAVG_Dec = TAVG_Dec
+        self.TAVG_Feb = TAVG_Feb
+        self.TAVG_Jan = TAVG_Jan
+        self.TAVG_Jul = TAVG_Jul
+        self.TAVG_Jun = TAVG_Jun
+        self.TAVG_Mar = TAVG_Mar
+        self.TAVG_May = TAVG_May
+        self.TAVG_Nov = TAVG_Nov
+        self.TAVG_Oct = TAVG_Oct
+        self.TAVG_Sep = TAVG_Sep
+        self.TMAX_Apr = TMAX_Apr
+        self.TMAX_Aug = TMAX_Aug
+        self.TMAX_Dec = TMAX_Dec
+        self.TMAX_Feb = TMAX_Feb
+        self.TMAX_Jan = TMAX_Jan
+        self.TMAX_Jul = TMAX_Jul
+        self.TMAX_Jun = TMAX_Jun
+        self.TMAX_Mar = TMAX_Mar
+        self.TMAX_May = TMAX_May
+        self.TMAX_Nov = TMAX_Nov
+        self.TMAX_Oct = TMAX_Oct
+        self.TMAX_Sep = TMAX_Sep
+        self.TMIN_Apr = TMIN_Apr
+        self.TMIN_Aug = TMIN_Aug
+        self.TMIN_Dec = TMIN_Dec
+        self.TMIN_Feb = TMIN_Feb
+        self.TMIN_Jan = TMIN_Jan
+        self.TMIN_Jul = TMIN_Jul
+        self.TMIN_Jun = TMIN_Jun
+        self.TMIN_Mar = TMIN_Mar
+        self.TMIN_May = TMIN_May
+        self.TMIN_Nov = TMIN_Nov
+        self.TMIN_Oct = TMIN_Oct
+        self.TMIN_Sep = TMIN_Sep
+        self.COMMODITY = COMMODITY
+        self.ACRES_HARVESTED = ACRES_HARVESTED
+        self.ACRES_PLANTED = ACRES_PLANTED
+
+    def get_data_as_data_frame(self):
+        try:
+            custom_data_input_dict = {
+                "YEAR": [self.YEAR],
+                "STATE": [self.STATE],
+                "REGION": [self.REGION],
+                "PRCP_Apr": [self.PRCP_Apr],
+                "PRCP_Aug": [self.PRCP_Aug],
+                "PRCP_Dec": [self.PRCP_Dec],
+                "PRCP_Feb": [self.PRCP_Feb],
+                "PRCP_Jan": [self.PRCP_Jan],
+                "PRCP_Jul": [self.PRCP_Jul],
+                "PRCP_Jun": [self.PRCP_Jun],
+                "PRCP_Mar": [self.PRCP_Mar],
+                "PRCP_May": [self.PRCP_May],
+                "PRCP_Nov": [self.PRCP_Nov],
+                "PRCP_Oct": [self.PRCP_Oct],
+                "PRCP_Sep": [self.PRCP_Sep],
+                "SNOW_Apr": [self.SNOW_Apr],
+                "SNOW_Aug": [self.SNOW_Aug],
+                "SNOW_Dec": [self.SNOW_Dec],
+                "SNOW_Feb": [self.SNOW_Feb],
+                "SNOW_Jan": [self.SNOW_Jan],
+                "SNOW_Jul": [self.SNOW_Jul],
+                "SNOW_Jun": [self.SNOW_Jun],
+                "SNOW_Mar": [self.SNOW_Mar],
+                "SNOW_May": [self.SNOW_May],
+                "SNOW_Nov": [self.SNOW_Nov],
+                "SNOW_Oct": [self.SNOW_Oct],
+                "SNOW_Sep": [self.SNOW_Sep],
+                "SNWD_Apr": [self.SNWD_Apr],
+                "SNWD_Aug": [self.SNWD_Aug],
+                "SNWD_Dec": [self.SNWD_Dec],
+                "SNWD_Feb": [self.SNWD_Feb],
+                "SNWD_Jan": [self.SNWD_Jan],
+                "SNWD_Jul": [self.SNWD_Jul],
+                "SNWD_Jun": [self.SNWD_Jun],
+                "SNWD_Mar": [self.SNWD_Mar],
+                "SNWD_May": [self.SNWD_May],
+                "SNWD_Nov": [self.SNWD_Nov],
+                "SNWD_Oct": [self.SNWD_Oct],
+                "SNWD_Sep": [self.SNWD_Sep],
+                "TAVG_Apr": [self.TAVG_Apr],
+                "TAVG_Aug": [self.TAVG_Aug],
+                "TAVG_Dec": [self.TAVG_Dec],
+                "TAVG_Feb": [self.TAVG_Feb],
+                "TAVG_Jan": [self.TAVG_Jan],
+                "TAVG_Jul": [self.TAVG_Jul],
+                "TAVG_Jun": [self.TAVG_Jun],
+                "TAVG_Mar": [self.TAVG_Mar],
+                "TAVG_May": [self.TAVG_May],
+                "TAVG_Nov": [self.TAVG_Nov],
+                "TAVG_Oct": [self.TAVG_Oct],
+                "TAVG_Sep": [self.TAVG_Sep],
+                "TMAX_Apr": [self.TMAX_Apr],
+                "TMAX_Aug": [self.TMAX_Aug],
+                "TMAX_Dec": [self.TMAX_Dec],
+                "TMAX_Feb": [self.TMAX_Feb],
+                "TMAX_Jan": [self.TMAX_Jan],
+                "TMAX_Jul": [self.TMAX_Jul],
+                "TMAX_Jun": [self.TMAX_Jun],
+                "TMAX_Mar": [self.TMAX_Mar],
+                "TMAX_May": [self.TMAX_May],
+                "TMAX_Nov": [self.TMAX_Nov],
+                "TMAX_Oct": [self.TMAX_Oct],
+                "TMAX_Sep": [self.TMAX_Sep],
+                "TMIN_Apr": [self.TMIN_Apr],
+                "TMIN_Aug": [self.TMIN_Aug],
+                "TMIN_Dec": [self.TMIN_Dec],
+                "TMIN_Feb": [self.TMIN_Feb],
+                "TMIN_Jan": [self.TMIN_Jan],
+                "TMIN_Jul": [self.TMIN_Jul],
+                "TMIN_Jun": [self.TMIN_Jun],
+                "TMIN_Mar": [self.TMIN_Mar],
+                "TMIN_May": [self.TMIN_May],
+                "TMIN_Nov": [self.TMIN_Nov],
+                "TMIN_Oct": [self.TMIN_Oct],
+                "TMIN_Sep": [self.TMIN_Sep],
+                "COMMODITY": [self.COMMODITY],
+                "ACRES_HARVESTED": [self.ACRES_HARVESTED],
+                "ACRES_PLANTED": [self.ACRES_PLANTED]
+            }
+            pred_df = pd.DataFrame(custom_data_input_dict)
+            logging.info("Dataframe Gathered")  # Add logging after dataframe creation
+            return pred_df
+
+        except Exception as e:
+            logging.error(f"Exception occurred: {e}")  # Log the exception
+            raise CustomException(e, sys)
