@@ -11,9 +11,9 @@ app = application
 logging.basicConfig(level=logging.INFO)
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+#@app.route('/')
+#def index():
+    #return render_template('index.html')
 
 
 @app.route('/predictdata', methods=['GET', 'POST'])
