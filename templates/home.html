@@ -1,456 +1,338 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yield predictor for the US</title>
+</head>
 <body>
     <div class="login">
-       <h1>Yeild predictor for the US</h1>
-   
-       <form action="{{ url_for('predict_datapoint')}}" method="post">
-        <h1>
-            <legend>Yeild prediction</legend>
-        </h1>
-        <div class="mb-3">
-            <label class="form-label">Year</label>
-            <input class="form-control" type="number" name="YEAR" placeholder="Enter the year" required />
-        <div class="mb-3">
-                <label class="form-label">Commodity</label>
-                <select class="form-control" name="COMMODITY" id="commodity" placeholder="Select Commodity" required>
-                    <option class="placeholder" selected disabled value="">Select Commodity</option>
-                    <option value="WHEAT">Wheat</option>
-                    <option value="RICE">Rice</option>
-                    <option value="SOYBEANS">Soybeans</option>
-                </select>
-            </div>
-        <div class="mb-3">
-                <label class="form-label">State</label>
-                <select class="form-control" name="STATE" id="state" placeholder="Select State" required>
-                    <option class="placeholder" selected disabled value="">Select State</option>
-                    <!-- Options will be dynamically added based on commodity selection -->
-                </select>
-            </div>
-        <div class="mb-3">
-                <label class="form-label">Region</label>
-                <select class="form-control" name="REGION" id="region" placeholder="Select Region" required>
-                    <option class="placeholder" selected disabled value="">Select Region</option>
-                    <!-- Options will be dynamically added based on state selection -->
-                </select>
-            </div>
+        <h1>Yield predictor for the US</h1>
+
+        <form action="{{ url_for('predict_datapoint')}}" method="post">
+            <fieldset>
+                <legend>Yield prediction</legend>
+                <div class="mb-3">
+                    <label class="form-label">Year</label>
+                    <input class="form-control" type="number" name="YEAR" placeholder="Enter the year" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Commodity</label>
+                    <input class="form-control" type="text" name="COMMODITY" placeholder="Enter commodity (e.g., Wheat, Rice, Soybeans)" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">State</label>
+                    <input class="form-control" type="text" name="STATE" placeholder="Enter state" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Region</label>
+                    <input class="form-control" type="text" name="REGION" placeholder="Enter region" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Apr</label>
+                    <input class="form-control" type="number" name="PRCP Apr" placeholder="Enter PRCP Apr" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Aug</label>
+                    <input class="form-control" type="number" name="PRCP Aug" placeholder="Enter PRCP Aug" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Dec</label>
+                    <input class="form-control" type="number" name="PRCP Dec" placeholder="Enter PRCP Dec" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Feb</label>
+                    <input class="form-control" type="number" name="PRCP Feb" placeholder="Enter PRCP Feb" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Jan</label>
+                    <input class="form-control" type="number" name="PRCP Jan" placeholder="Enter PRCP Jan" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Jul</label>
+                    <input class="form-control" type="number" name="PRCP Jul" placeholder="Enter PRCP Jul" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Jun</label>
+                    <input class="form-control" type="number" name="PRCP Jun" placeholder="Enter PRCP Jun" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Mar</label>
+                    <input class="form-control" type="number" name="PRCP Mar" placeholder="Enter PRCP Mar" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP May</label>
+                    <input class="form-control" type="number" name="PRCP May" placeholder="Enter PRCP May" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Nov</label>
+                    <input class="form-control" type="number" name="PRCP Nov" placeholder="Enter PRCP Nov" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Oct</label>
+                    <input class="form-control" type="number" name="PRCP Oct" placeholder="Enter PRCP Oct" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PRCP Sep</label>
+                    <input class="form-control" type="number" name="PRCP Sep" placeholder="Enter PRCP Sep" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Apr</label>
+                    <input class="form-control" type="number" name="SNOW Apr" placeholder="Enter SNOW Apr" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Aug</label>
+                    <input class="form-control" type="number" name="SNOW Aug" placeholder="Enter SNOW Aug" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Dec</label>
+                    <input class="form-control" type="number" name="SNOW Dec" placeholder="Enter SNOW Dec" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Feb</label>
+                    <input class="form-control" type="number" name="SNOW Feb" placeholder="Enter SNOW Feb" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Jan</label>
+                    <input class="form-control" type="number" name="SNOW Jan" placeholder="Enter SNOW Jan" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Jul</label>
+                    <input class="form-control" type="number" name="SNOW Jul" placeholder="Enter SNOW Jul" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Jun</label>
+                    <input class="form-control" type="number" name="SNOW Jun" placeholder="Enter SNOW Jun" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Mar</label>
+                    <input class="form-control" type="number" name="SNOW Mar" placeholder="Enter SNOW Mar" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW May</label>
+                    <input class="form-control" type="number" name="SNOW May" placeholder="Enter SNOW May" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Nov</label>
+                    <input class="form-control" type="number" name="SNOW Nov" placeholder="Enter SNOW Nov" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Oct</label>
+                    <input class="form-control" type="number" name="SNOW Oct" placeholder="Enter SNOW Oct" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNOW Sep</label>
+                    <input class="form-control" type="number" name="SNOW Sep" placeholder="Enter SNOW Sep" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Apr</label>
+                    <input class="form-control" type="number" name="SNWD Apr" placeholder="Enter SNWD Apr" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Aug</label>
+                    <input class="form-control" type="number" name="SNWD Aug" placeholder="Enter SNWD Aug" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Dec</label>
+                    <input class="form-control" type="number" name="SNWD Dec" placeholder="Enter SNWD Dec" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Feb</label>
+                    <input class="form-control" type="number" name="SNWD Feb" placeholder="Enter SNWD Feb" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Jan</label>
+                    <input class="form-control" type="number" name="SNWD Jan" placeholder="Enter SNWD Jan" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Jul</label>
+                    <input class="form-control" type="number" name="SNWD Jul" placeholder="Enter SNWD Jul" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Jun</label>
+                    <input class="form-control" type="number" name="SNWD Jun" placeholder="Enter SNWD Jun" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Mar</label>
+                    <input class="form-control" type="number" name="SNWD Mar" placeholder="Enter SNWD Mar" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD May</label>
+                    <input class="form-control" type="number" name="SNWD May" placeholder="Enter SNWD May" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Nov</label>
+                    <input class="form-control" type="number" name="SNWD Nov" placeholder="Enter SNWD Nov" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Oct</label>
+                    <input class="form-control" type="number" name="SNWD Oct" placeholder="Enter SNWD Oct" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SNWD Sep</label>
+                    <input class="form-control" type="number" name="SNWD Sep" placeholder="Enter SNWD Sep" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Apr</label>
+                    <input class="form-control" type="number" name="TAVG Apr" placeholder="Enter TAVG Apr" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Aug</label>
+                    <input class="form-control" type="number" name="TAVG Aug" placeholder="Enter TAVG Aug" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Dec</label>
+                    <input class="form-control" type="number" name="TAVG Dec" placeholder="Enter TAVG Dec" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Feb</label>
+                    <input class="form-control" type="number" name="TAVG Feb" placeholder="Enter TAVG Feb" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Jan</label>
+                    <input class="form-control" type="number" name="TAVG Jan" placeholder="Enter TAVG Jan" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Jul</label>
+                    <input class="form-control" type="number" name="TAVG Jul" placeholder="Enter TAVG Jul" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Jun</label>
+                    <input class="form-control" type="number" name="TAVG Jun" placeholder="Enter TAVG Jun" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Mar</label>
+                    <input class="form-control" type="number" name="TAVG Mar" placeholder="Enter TAVG Mar" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG May</label>
+                    <input class="form-control" type="number" name="TAVG May" placeholder="Enter TAVG May" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Nov</label>
+                    <input class="form-control" type="number" name="TAVG Nov" placeholder="Enter TAVG Nov" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Oct</label>
+                    <input class="form-control" type="number" name="TAVG Oct" placeholder="Enter TAVG Oct" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TAVG Sep</label>
+                    <input class="form-control" type="number" name="TAVG Sep" placeholder="Enter TAVG Sep" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Apr</label>
+                    <input class="form-control" type="number" name="TMAX Apr" placeholder="Enter TMAX Apr" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Aug</label>
+                    <input class="form-control" type="number" name="TMAX Aug" placeholder="Enter TMAX Aug" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Dec</label>
+                    <input class="form-control" type="number" name="TMAX Dec" placeholder="Enter TMAX Dec" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Feb</label>
+                    <input class="form-control" type="number" name="TMAX Feb" placeholder="Enter TMAX Feb" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Jan</label>
+                    <input class="form-control" type="number" name="TMAX Jan" placeholder="Enter TMAX Jan" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Jul</label>
+                    <input class="form-control" type="number" name="TMAX Jul" placeholder="Enter TMAX Jul" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Jun</label>
+                    <input class="form-control" type="number" name="TMAX Jun" placeholder="Enter TMAX Jun" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Mar</label>
+                    <input class="form-control" type="number" name="TMAX Mar" placeholder="Enter TMAX Mar" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX May</label>
+                    <input class="form-control" type="number" name="TMAX May" placeholder="Enter TMAX May" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Nov</label>
+                    <input class="form-control" type="number" name="TMAX Nov" placeholder="Enter TMAX Nov" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Oct</label>
+                    <input class="form-control" type="number" name="TMAX Oct" placeholder="Enter TMAX Oct" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMAX Sep</label>
+                    <input class="form-control" type="number" name="TMAX Sep" placeholder="Enter TMAX Sep" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Apr</label>
+                    <input class="form-control" type="number" name="TMIN Apr" placeholder="Enter TMIN Apr" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Aug</label>
+                    <input class="form-control" type="number" name="TMIN Aug" placeholder="Enter TMIN Aug" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Dec</label>
+                    <input class="form-control" type="number" name="TMIN Dec" placeholder="Enter TMIN Dec" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Feb</label>
+                    <input class="form-control" type="number" name="TMIN Feb" placeholder="Enter TMIN Feb" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Jan</label>
+                    <input class="form-control" type="number" name="TMIN Jan" placeholder="Enter TMIN Jan" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Jul</label>
+                    <input class="form-control" type="number" name="TMIN Jul" placeholder="Enter TMIN Jul" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Jun</label>
+                    <input class="form-control" type="number" name="TMIN Jun" placeholder="Enter TMIN Jun" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Mar</label>
+                    <input class="form-control" type="number" name="TMIN Mar" placeholder="Enter TMIN Mar" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN May</label>
+                    <input class="form-control" type="number" name="TMIN May" placeholder="Enter TMIN May" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Nov</label>
+                    <input class="form-control" type="number" name="TMIN Nov" placeholder="Enter TMIN Nov" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Oct</label>
+                    <input class="form-control" type="number" name="TMIN Oct" placeholder="Enter TMIN Oct" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">TMIN Sep</label>
+                    <input class="form-control" type="number" name="TMIN Sep" placeholder="Enter TMIN Sep" required />
+                </div>        
+                <div class="mb-3">
+                    <label class="form-label">Acres Harvested</label>
+                    <input class="form-control" type="number" name="ACRES HARVESTED" placeholder="Enter Acres Harvested" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Acres Planted</label>
+                    <input class="form-control" type="number" name="ACRES PLANTED" placeholder="Enter Acres Planted" required />
+                </div>
+                <div class="mb-3">
+                    <input class="btn btn-primary" type="submit" value="Predict" />
+                </div>                
+            </fieldset>
         </form>
+        <h2>
+            THE yield prediction is {{results}}
+        </h2>
     </div>
-    <script>
-        // States data for different commodities
-        const statesByCommodity = {
-            'RICE': ['ARKANSAS', 'CALIFORNIA', 'LOUISIANA', 'MISSISSIPPI', 'MISSOURI', 'TEXAS'],
-            'SOYBEANS': ['DELAWARE', 'ALABAMA', 'ARKANSAS', 'FLORIDA', 'GEORGIA', 'ILLINOIS', 'INDIANA', 'IOWA', 'KANSAS', 'KENTUCKY', 'LOUISIANA', 'MARYLAND', 'MICHIGAN', 'MINNESOTA', 'MISSISSIPPI', 'MISSOURI', 'NEBRASKA', 'NEW JERSEY', 'NEW YORK', 'NORTH CAROLINA', 'NORTH DAKOTA', 'OHIO', 'OKLAHOMA', 'SOUTH CAROLINA', 'SOUTH DAKOTA', 'TENNESSEE', 'TEXAS', 'VIRGINIA', 'WISCONSIN'],
-            'WHEAT': ['DELAWARE', 'ALABAMA', 'ARKANSAS', 'ARIZONA', 'CALIFORNIA', 'COLORADO', 'FLORIDA', 'GEORGIA', 'IDAHO', 'ILLINOIS', 'INDIANA', 'IOWA', 'KANSAS', 'KENTUCKY', 'LOUISIANA', 'MARYLAND', 'MICHIGAN', 'MINNESOTA', 'MISSISSIPPI', 'MISSOURI', 'MONTANA', 'NEBRASKA', 'NEVADA', 'NEW JERSEY', 'NEW MEXICO', 'NEW YORK', 'NORTH CAROLINA', 'NORTH DAKOTA', 'OHIO', 'OKLAHOMA', 'OREGON', 'SOUTH CAROLINA', 'SOUTH DAKOTA', 'TENNESSEE', 'TEXAS', 'UTAH', 'VIRGINIA', 'WASHINGTON', 'WISCONSIN', 'WYOMING']
-        };
-    
-        // Region data for different states
-        const regionsByState = {
-            'ARKANSAS': ['SOUTH'],
-            'CALIFORNIA': ['WEST'],
-            'LOUISIANA': ['SOUTH'],
-            'MISSISSIPPI': ['SOUTH'],
-            'MISSOURI': ['MIDWEST'],
-            'TEXAS': ['SOUTH'],
-            'DELAWARE': ['SOUTH'],
-            'ALABAMA': ['SOUTH'],
-            'FLORIDA': ['SOUTH'],
-            'GEORGIA': ['SOUTH'],
-            'ILLINOIS': ['MIDWEST'],
-            'INDIANA': ['MIDWEST'],
-            'IOWA': ['MIDWEST'],
-            'KANSAS': ['MIDWEST'],
-            'MICHIGAN': ['MIDWEST'],
-            'MINNESOTA': ['MIDWEST'],
-            'NEBRASKA': ['MIDWEST'],
-            'NEW JERSEY': ['NORTHEAST'],
-            'NEW YORK': ['NORTHEAST'],
-            'NORTH CAROLINA': ['SOUTH'],
-            'NORTH DAKOTA': ['MIDWEST'],
-            'OHIO': ['MIDWEST'],
-            'OKLAHOMA': ['SOUTH'],
-            'SOUTH CAROLINA': ['SOUTH'],
-            'TENNESSEE': ['SOUTH'],
-            'VIRGINIA': ['SOUTH'],
-            'ARIZONA': ['WEST'],
-            'COLORADO': ['WEST'],
-            'IDAHO': ['WEST'],
-            'MONTANA': ['WEST'],
-            'NEVADA': ['WEST'],
-            'NEW MEXICO': ['WEST'],
-            'OREGON': ['WEST'],
-            'UTAH': ['WEST'],
-            'WASHINGTON': ['WEST'],
-            'WYOMING': ['WEST']
-        };
-
-        // Function to update the states dropdown based on selected commodity
-        function updateStates() {
-            const commodity = document.getElementById('commodity').value.toUpperCase(); // Convert to uppercase
-            const stateDropdown = document.getElementById('state');
-
-            // Clear existing options
-            stateDropdown.innerHTML = '';
-
-            // Add placeholder option
-            const placeholderOption = document.createElement('option');
-            placeholderOption.value = '';
-            placeholderOption.textContent = 'Select State';
-            placeholderOption.disabled = true;
-            placeholderOption.selected = true;
-            stateDropdown.appendChild(placeholderOption);
-
-            // Add options for selected commodity
-            const states = statesByCommodity[commodity];
-            if (states) {
-                states.forEach(state => {
-                    const option = document.createElement('option');
-                    option.value = state;
-                    option.textContent = state;
-                    stateDropdown.appendChild(option);
-                });
-            }
-
-            // Update regions based on selected state
-            updateRegions();
-        }
-
-        // Function to update the regions dropdown based on selected state
-        function updateRegions() {
-            const state = document.getElementById('state').value;
-            const regionDropdown = document.getElementById('region');
-
-            // Clear existing options
-            regionDropdown.innerHTML = '';
-
-            // Add placeholder option
-            const placeholderOption = document.createElement('option');
-            placeholderOption.value = '';
-            placeholderOption.textContent = 'Select Region';
-            placeholderOption.disabled = true;
-            placeholderOption.selected = true;
-            regionDropdown.appendChild(placeholderOption);
-
-            // Add options for selected state
-            const regions = regionsByState[state];
-            if (regions) {
-                regions.forEach(region => {
-                    const option = document.createElement('option');
-                    option.value = region;
-                    option.textContent = region;
-                    regionDropdown.appendChild(option);
-                });
-            }
-        }
-
-        // Add event listener to commodity dropdown to update states
-        document.getElementById('commodity').addEventListener('change', updateStates);
-        document.getElementById('state').addEventListener('change', updateRegions);
-
-        // Call updateStates initially to populate states based on default commodity
-        updateStates();
-    </script>
-        <div class="mb-3">
-            <label class="form-label">PRCP Apr</label>
-            <input class="form-control" type="number" name="PRCP Apr" placeholder="Enter PRCP Apr" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP Aug</label>
-            <input class="form-control" type="number" name="PRCP Aug" placeholder="Enter PRCP Aug" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP Dec</label>
-            <input class="form-control" type="number" name="PRCP Dec" placeholder="Enter PRCP Dec" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP Feb</label>
-            <input class="form-control" type="number" name="PRCP Feb" placeholder="Enter PRCP Feb" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP Jan</label>
-            <input class="form-control" type="number" name="PRCP Jan" placeholder="Enter PRCP Jan" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP Jul</label>
-            <input class="form-control" type="number" name="PRCP Jul" placeholder="Enter PRCP Jul" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP Jun</label>
-            <input class="form-control" type="number" name="PRCP Jun" placeholder="Enter PRCP Jun" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP Mar</label>
-            <input class="form-control" type="number" name="PRCP Mar" placeholder="Enter PRCP Mar" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP May</label>
-            <input class="form-control" type="number" name="PRCP May" placeholder="Enter PRCP May" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP Nov</label>
-            <input class="form-control" type="number" name="PRCP Nov" placeholder="Enter PRCP Nov" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP Oct</label>
-            <input class="form-control" type="number" name="PRCP Oct" placeholder="Enter PRCP Oct" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">PRCP Sep</label>
-            <input class="form-control" type="number" name="PRCP Sep" placeholder="Enter PRCP Sep" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Apr</label>
-            <input class="form-control" type="number" name="SNOW Apr" placeholder="Enter SNOW Apr" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Aug</label>
-            <input class="form-control" type="number" name="SNOW Aug" placeholder="Enter SNOW Aug" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Dec</label>
-            <input class="form-control" type="number" name="SNOW Dec" placeholder="Enter SNOW Dec" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Feb</label>
-            <input class="form-control" type="number" name="SNOW Feb" placeholder="Enter SNOW Feb" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Jan</label>
-            <input class="form-control" type="number" name="SNOW Jan" placeholder="Enter SNOW Jan" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Jul</label>
-            <input class="form-control" type="number" name="SNOW Jul" placeholder="Enter SNOW Jul" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Jun</label>
-            <input class="form-control" type="number" name="SNOW Jun" placeholder="Enter SNOW Jun" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Mar</label>
-            <input class="form-control" type="number" name="SNOW Mar" placeholder="Enter SNOW Mar" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW May</label>
-            <input class="form-control" type="number" name="SNOW May" placeholder="Enter SNOW May" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Nov</label>
-            <input class="form-control" type="number" name="SNOW Nov" placeholder="Enter SNOW Nov" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Oct</label>
-            <input class="form-control" type="number" name="SNOW Oct" placeholder="Enter SNOW Oct" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNOW Sep</label>
-            <input class="form-control" type="number" name="SNOW Sep" placeholder="Enter SNOW Sep" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Apr</label>
-            <input class="form-control" type="number" name="SNWD Apr" placeholder="Enter SNWD Apr" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Aug</label>
-            <input class="form-control" type="number" name="SNWD Aug" placeholder="Enter SNWD Aug" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Dec</label>
-            <input class="form-control" type="number" name="SNWD Dec" placeholder="Enter SNWD Dec" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Feb</label>
-            <input class="form-control" type="number" name="SNWD Feb" placeholder="Enter SNWD Feb" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Jan</label>
-            <input class="form-control" type="number" name="SNWD Jan" placeholder="Enter SNWD Jan" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Jul</label>
-            <input class="form-control" type="number" name="SNWD Jul" placeholder="Enter SNWD Jul" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Jun</label>
-            <input class="form-control" type="number" name="SNWD Jun" placeholder="Enter SNWD Jun" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Mar</label>
-            <input class="form-control" type="number" name="SNWD Mar" placeholder="Enter SNWD Mar" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD May</label>
-            <input class="form-control" type="number" name="SNWD May" placeholder="Enter SNWD May" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Nov</label>
-            <input class="form-control" type="number" name="SNWD Nov" placeholder="Enter SNWD Nov" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Oct</label>
-            <input class="form-control" type="number" name="SNWD Oct" placeholder="Enter SNWD Oct" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">SNWD Sep</label>
-            <input class="form-control" type="number" name="SNWD Sep" placeholder="Enter SNWD Sep" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Apr</label>
-            <input class="form-control" type="number" name="TAVG Apr" placeholder="Enter TAVG Apr" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Aug</label>
-            <input class="form-control" type="number" name="TAVG Aug" placeholder="Enter TAVG Aug" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Dec</label>
-            <input class="form-control" type="number" name="TAVG Dec" placeholder="Enter TAVG Dec" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Feb</label>
-            <input class="form-control" type="number" name="TAVG Feb" placeholder="Enter TAVG Feb" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Jan</label>
-            <input class="form-control" type="number" name="TAVG Jan" placeholder="Enter TAVG Jan" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Jul</label>
-            <input class="form-control" type="number" name="TAVG Jul" placeholder="Enter TAVG Jul" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Jun</label>
-            <input class="form-control" type="number" name="TAVG Jun" placeholder="Enter TAVG Jun" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Mar</label>
-            <input class="form-control" type="number" name="TAVG Mar" placeholder="Enter TAVG Mar" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG May</label>
-            <input class="form-control" type="number" name="TAVG May" placeholder="Enter TAVG May" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Nov</label>
-            <input class="form-control" type="number" name="TAVG Nov" placeholder="Enter TAVG Nov" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Oct</label>
-            <input class="form-control" type="number" name="TAVG Oct" placeholder="Enter TAVG Oct" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TAVG Sep</label>
-            <input class="form-control" type="number" name="TAVG Sep" placeholder="Enter TAVG Sep" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Apr</label>
-            <input class="form-control" type="number" name="TMAX Apr" placeholder="Enter TMAX Apr" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Aug</label>
-            <input class="form-control" type="number" name="TMAX Aug" placeholder="Enter TMAX Aug" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Dec</label>
-            <input class="form-control" type="number" name="TMAX Dec" placeholder="Enter TMAX Dec" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Feb</label>
-            <input class="form-control" type="number" name="TMAX Feb" placeholder="Enter TMAX Feb" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Jan</label>
-            <input class="form-control" type="number" name="TMAX Jan" placeholder="Enter TMAX Jan" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Jul</label>
-            <input class="form-control" type="number" name="TMAX Jul" placeholder="Enter TMAX Jul" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Jun</label>
-            <input class="form-control" type="number" name="TMAX Jun" placeholder="Enter TMAX Jun" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Mar</label>
-            <input class="form-control" type="number" name="TMAX Mar" placeholder="Enter TMAX Mar" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX May</label>
-            <input class="form-control" type="number" name="TMAX May" placeholder="Enter TMAX May" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Nov</label>
-            <input class="form-control" type="number" name="TMAX Nov" placeholder="Enter TMAX Nov" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Oct</label>
-            <input class="form-control" type="number" name="TMAX Oct" placeholder="Enter TMAX Oct" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMAX Sep</label>
-            <input class="form-control" type="number" name="TMAX Sep" placeholder="Enter TMAX Sep" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Apr</label>
-            <input class="form-control" type="number" name="TMIN Apr" placeholder="Enter TMIN Apr" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Aug</label>
-            <input class="form-control" type="number" name="TMIN Aug" placeholder="Enter TMIN Aug" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Dec</label>
-            <input class="form-control" type="number" name="TMIN Dec" placeholder="Enter TMIN Dec" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Feb</label>
-            <input class="form-control" type="number" name="TMIN Feb" placeholder="Enter TMIN Feb" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Jan</label>
-            <input class="form-control" type="number" name="TMIN Jan" placeholder="Enter TMIN Jan" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Jul</label>
-            <input class="form-control" type="number" name="TMIN Jul" placeholder="Enter TMIN Jul" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Jun</label>
-            <input class="form-control" type="number" name="TMIN Jun" placeholder="Enter TMIN Jun" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Mar</label>
-            <input class="form-control" type="number" name="TMIN Mar" placeholder="Enter TMIN Mar" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN May</label>
-            <input class="form-control" type="number" name="TMIN May" placeholder="Enter TMIN May" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Nov</label>
-            <input class="form-control" type="number" name="TMIN Nov" placeholder="Enter TMIN Nov" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Oct</label>
-            <input class="form-control" type="number" name="TMIN Oct" placeholder="Enter TMIN Oct" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">TMIN Sep</label>
-            <input class="form-control" type="number" name="TMIN Sep" placeholder="Enter TMIN Sep" required />
-        </div>        
-        <div class="mb-3">
-            <label class="form-label">Acres Harvested</label>
-            <input class="form-control" type="number" name="ACRES HARVESTED" placeholder="Enter Acres Harvested" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Acres Planted</label>
-            <input class="form-control" type="number" name="ACRES PLANTED" placeholder="Enter Acres Planted" required />
-        </div>
-        <div class="mb-3">
-            <input class="btn btn-primary" type="submit" value="Predict" required />
-        </div>
-    </form>
-    <h2>
-       THE yeild prediction is {{results}}
-    </h2>
-    <body>
+</body>
 </html>

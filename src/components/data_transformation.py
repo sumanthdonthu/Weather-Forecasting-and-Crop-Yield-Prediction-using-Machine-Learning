@@ -31,14 +31,6 @@ class DataTransformation:
             logging.info(f'Train Dataframe Head : \n{train_df.head().to_string()}')
             logging.info(f'Test Dataframe Head  : \n{test_df.head().to_string()}')
 
-            label_encoder = LabelEncoder()
-            train_df['STATE'] = label_encoder.fit_transform(train_df['STATE'])
-            test_df['STATE'] = label_encoder.transform(test_df['STATE'])
-            train_df['REGION'] = label_encoder.fit_transform(train_df['REGION'])
-            test_df['REGION'] = label_encoder.transform(test_df['REGION'])
-            train_df['COMMODITY'] = label_encoder.fit_transform(train_df['COMMODITY'])
-            test_df['COMMODITY'] = label_encoder.transform(test_df['COMMODITY'])            
-
             target_column_name = "YIELD"
 
             # Define numerical columns
